@@ -24,7 +24,7 @@ function updateEvents() {
     }
     
     // Gets the speaker notification date if one exists or sets it to the start date of the conference
-    var speakerNotificationDate = new Date(data[i][4].getTime() + 2.88e7)
+    var speakerNotificationDate = new Date(data[i][6].getTime() + 2.88e7)
     if (data[i][5] != '') {
       speakerNotificationDate = new Date(data[i][5].getTime() + 2.88e7)
     }
