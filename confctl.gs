@@ -24,7 +24,7 @@ function updateEvents() {
     }
     
     // Gets the speaker notification date if one exists or sets it to the start date of the conference
-    var speakerNotificationDate = new Date(data[i][6].getTime() + 2.88e7)
+    var speakerNotificationDate = new Date(data[i][4].getTime() + 2.88e7)
     if (data[i][5] != '') {
       speakerNotificationDate = new Date(data[i][5].getTime() + 2.88e7)
     }
@@ -61,26 +61,26 @@ function updateEvents() {
         Logger.log("Created accepted event on submitted calendar")
       }
       
-      deleteEvent(submittedCalendar.getEvents(events[i]["Start date"], events[i]["End date"], {search: events[i]["Event Name"] + " - Submitted"})[0])
-      deleteEvent(submittedCalendar.getEvents(events[i]["Start date"], events[i]["End date"], {search: events[i]["Event Name"] + " - Rejected"})[0])
+      deleteEvent(submittedCalendar.getEvents(events[i]["Start date"], events[i]["End date"], {search: events[i]["Event Name"] + " - Submitted -accepted"})[0])
+      deleteEvent(submittedCalendar.getEvents(events[i]["Start date"], events[i]["End date"], {search: events[i]["Event Name"] + " - Rejected -accepted"})[0])
     } else if (events[i]["Accepted"] == "No") {
       if (typeof submittedCalendar.getEvents(events[i]["Start date"], events[i]["End date"], {search: events[i]["Event Name"] + " - Rejected"})[0] == 'undefined') {
         submittedCalendar.createEvent(events[i]["Event Name"] + " - Rejected", events[i]["Start date"], events[i]["End date"], {location: events[i]["Location"], description: "Event URL: " + events[i]["Event URL"] + "\n\nCFP URL: " + events[i]["CFP URL"] + "\n\nTalks Submitted: " + events[i]["Talks Submitted"]}).setColor(CalendarApp.EventColor.GRAY)
         Logger.log("Created rejected event")
       }
       
-      deleteEvent(submittedCalendar.getEvents(events[i]["Start date"], events[i]["End date"], {search: events[i]["Event Name"] + " - Submitted"})[0])
-      deleteEvent(submittedCalendar.getEvents(events[i]["Start date"], events[i]["End date"], {search: events[i]["Event Name"] + " - Accepted"})[0])
-      deleteEvent(acceptedCalendar.getEvents(events[i]["Start date"], events[i]["End date"], {search: events[i]["Event Name"] + " - " + events[i]["Talks Accepted"]})[0])
+      deleteEvent(submittedCalendar.getEvents(events[i]["Start date"], events[i]["End date"], {search: events[i]["Event Name"] + "Submitted -rejected"})[0])
+      deleteEvent(submittedCalendar.getEvents(events[i]["Start date"], events[i]["End date"], {search: events[i]["Event Name"] + "Accepted -rejected"})[0])
+      deleteEvent(acceptedCalendar.getEvents(events[i]["Start date"], events[i]["End date"], {search: events[i]["Event Name"] + " -rejected" + events[i]["Talks Accepted"]})[0])
     } else {
       if (typeof submittedCalendar.getEvents(events[i]["Start date"], events[i]["End date"], {search: events[i]["Event Name"] + " - Submitted"})[0] == 'undefined') {
         submittedCalendar.createEvent(events[i]["Event Name"] + " - Submitted", events[i]["Start date"], events[i]["End date"], {location: events[i]["Location"], description: "CFP End Date: " + events[i]["CFP end date"] + "\n\nSpeaker Notification Date: " + events[i]["Speaker notification date"] + "\n\nEvent URL: " + events[i]["Event URL"] + "\n\nCFP URL: " + events[i]["CFP URL"] + "\n\nTalks Submitted: " + events[i]["Talks Submitted"]}).setColor(CalendarApp.EventColor.ORANGE).addEmailReminder(40320).addPopupReminder(40320)
         Logger.log("Created submitted event")
       }
       
-      deleteEvent(acceptedCalendar.getEvents(events[i]["Start date"], events[i]["End date"], {search: events[i]["Event Name"] + " - " + events[i]["Talks Accepted"]})[0])
-      deleteEvent(submittedCalendar.getEvents(events[i]["Start date"], events[i]["End date"], {search: events[i]["Event Name"] + " - Accepted"})[0])
-      deleteEvent(submittedCalendar.getEvents(events[i]["Start date"], events[i]["End date"], {search: events[i]["Event Name"] + " - Rejected"})[0])
+      deleteEvent(acceptedCalendar.getEvents(events[i]["Start date"], events[i]["End date"], {search: events[i]["Event Name"] + " -submitted " + events[i]["Talks Accepted"]})[0])
+      deleteEvent(submittedCalendar.getEvents(events[i]["Start date"], events[i]["End date"], {search: events[i]["Event Name"] + "Accepted -submitted"})[0])
+      deleteEvent(submittedCalendar.getEvents(events[i]["Start date"], events[i]["End date"], {search: events[i]["Event Name"] + "Rejected -submitted"})[0])
     }
     
     // Creates CFP entries
